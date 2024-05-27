@@ -42,3 +42,7 @@
 	path = cltl-vad
 	url = https://github.com/leolani/cltl-vad.git
 	branch = main
+[submodule "cltl-context"]
+	path = cltl-context
+	url = https://github.com/leolani/cltl-context.git
+	branch = main
