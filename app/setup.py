@@ -1,5 +1,4 @@
-from setuptools import setup, find_namespace_packages
-
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -7,20 +6,30 @@ with open("README.md", "r") as fh:
 with open("VERSION", "r") as fh:
     version = fh.read().strip()
 
-
 setup(
-    name='app.app',
+    name='cltl.eliza-app',
     version=version,
-    package_dir={'': 'src'},
-    packages=find_namespace_packages(include=['cltl.*', 'cltl_service.*', 'myapp.*', 'myapp_service.*'], where='src'),
+    package_dir={'': 'py-app'},
+    packages=find_packages(include=['*'], where='py-app'),
     data_files=[('VERSION', ['VERSION'])],
-    url="https://github.com/leolani/cltl-template-app",
+    url="https://github.com/leolani/cltl-eliza-app",
     license='MIT License',
-    author='',
-    author_email='',
-    description='Template app for Leolani',
+    author='CLTL',
+    author_email='t.baier@vu.nl',
+    description='VAD for Leolani',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    python_requires='>=3.9',
-    install_requires=[''],
+    python_requires='>=3.8',
+    install_requires=[
+        "cltl.backend[impl,host,service]",
+        "cltl.asr[google,service]",
+        "cltl.vad[impl,service]",
+        "cltl.chat-ui",
+        "cltl.eliza",
+        "flask",
+        "werkzeug"
+    ],
+    entry_points={
+        'eliza': [ 'eliza = app:main']
+    }
 )

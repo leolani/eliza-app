@@ -1,17 +1,21 @@
 SHELL = /bin/bash
 
-project_name ?= "app"
+project_name ?= "cltl-eliza"
 
 project_components = $(addprefix ${project_root}/, \
-        emissor \
-        cltl-requirements \
-        cltl-combot \
-        cltl-emissor-data \
-        cltl-chat-ui \
-        app)
+		emissor \
+		cltl-requirements \
+		cltl-combot \
+		cltl-backend \
+		cltl-eliza-app \
+		cltl-eliza \
+		cltl-chat-ui \
+		cltl-emissor-data \
+		cltl-vad \
+                cltl-asr)
 
 git_local ?= ..
-git_remote ?= "https://github.com/leolani"
+git_remote ?= https://github.com/leolani
 
 
 include util/make/makefile.parent.mk

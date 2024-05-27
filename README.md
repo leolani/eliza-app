@@ -1,58 +1,34 @@
-# Template repository for a minimal App
+# eliza-parent
 
-## Applicaton
+Parent repository for the Eliza App.
 
-< FLOW CHART OF THE APP >
+This repository contains all components of the Eliza app as _git_ submodules and can be used as the
+root to execute [build commands](https://github.com/leolani/cltl-build/tree/main/make) that are run on the components.
 
-## Applicaton structure
+For a description of the Eliza App see to the [README](https://github.com/leolani/cltl-eliza-app) there.
 
-Describe repository content (folder structure)
+## Check-out
 
-## EMISSOR
+To check out all code needed for the Eliza App, clone this repository including all submodules:
 
-The application collects interaction data in EMISSOR format.
-There is a single scenario created in *app/py-app/app.py*
-for each run of the application.
+        git clone --recurse-submodules -j8 https://github.com/leolani/eliza-parent.git
 
-## Build your own application
 
-### Setup the application
+## Run the application
 
-1. Clone this repository.
+Checkout the repository as described in [Check-out](#check-out). Then go to the
+repository root, build the project, activate the virtual environment for the
+Python application and run it. Altogether:
 
-       git clone https://github.com/leolani/cltl-template-app.git <YOUR FOLDER NAME> --recurse-submodules
+        git clone --recurse-submodules -j8 https://github.com/leolani/eliza-parent.git
+        cd eliza-parent
+        make build
+        cd cltl-eliza-app
+        source venv/bin/active
+        cd py-app
+        python app.py
 
-1. Change the *origin* to your own online *git* repository:
 
-       git remote set-url origin <YOUR REPOSITORY URL>
-       git push -u origin main
+## Development
 
-1. Add custom components and code in *src/* or add them as *git* submodule as described below.
-
-### Adding components
-
-1. Add the component as *git* submodule, e.g *cltl-eliza*:
-
-       git submodule add -b main --name cltl-eliza https://github.com/leolani/cltl-eliza.git cltl-eliza
-       git submodule update --init --recursive
-
-1. Add the component to
-    - *makefile*: Add the folder name of the component to the *project_dependencies* list, e.g. `cltl-eliza`.
-    - *app/makefile*: Add the folder name of the component to the *project_dependencies* list, e.g. `cltl-eliza`.
-    - *app/requirements.txt*: Add it with the package name and eventual
-      [optional depencdenies](https://setuptools.pypa.io/en/latest/userguide/dependency_management.html#optional-dependencies)
-      (see the *setup.py* of the component), e.g. `cltl.eliza[impl,service]`.
-
-1. Setup and start the component in *app/py-app/app.py*. For convenience follow
-   the pattern to create a *Container* and add it to the ApplicationContaienr, see e.g. the `ElizaContainer` in
-   [Leolani app](https://github.com/leolani/cltl-leolani-app/blob/main/py-app/app.py)).
-1. If the service of the component provides REST endpoints via a Flask app, add it in the `main()` function of
-   *app/py-app/app.py*.
-1. Add the necessary configuration section(s) in *app/py-app/config/default.config* (see the documentation of the
-   component or e.g.
-   the [Leolani app](https://github.com/leolani/cltl-leolani-app/blob/main/py-app/config/default.config)), e.g.
-   the `[cltl.eliza]` section.
-1. In the configuration, connect the input and output of the component to existing components by configuring the desired
-   topic names, e.g. `cltl.topic.text_in` and `cltl.topic.text_out`.
-1. Add required dependencies of the component to *cltl-requirements/requirements.txt* (see the documentation or
-   *setup.py* of the added component), e.g. none for Eliza.
+Follow the instructions in [cltl-combot](https://github.com/leolani/cltl-combot).
