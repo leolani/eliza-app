@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-project_name ?= "cltl-eliza"
+project_name ?= "eliza-app"
 
 project_components = $(addprefix ${project_root}/, \
 		emissor \
@@ -8,12 +8,12 @@ project_components = $(addprefix ${project_root}/, \
 		cltl-combot \
 		cltl-backend \
 		cltl-context \
-		cltl-eliza-app \
 		cltl-eliza \
 		cltl-chat-ui \
 		cltl-emissor-data \
 		cltl-vad \
-		cltl-asr)
+		cltl-asr \
+		app)
 
 git_local ?= ..
 git_remote ?= https://github.com/leolani
