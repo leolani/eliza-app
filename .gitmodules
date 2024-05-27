@@ -26,3 +26,19 @@
 	path = app/util
 	url = https://github.com/leolani/cltl-build.git
 	branch = main
+[submodule "cltl-eliza"]
+	path = cltl-eliza
+	url = https://github.com/leolani/cltl-eliza.git
+	branch = main
+[submodule "cltl-backend"]
+	path = cltl-backend
+	url = https://github.com/leolani/cltl-backend.git
+	branch = main
+[submodule "cltl-asr"]
+	path = cltl-asr
+	url = https://github.com/leolani/cltl-asr.git
+	branch = main
+[submodule "cltl-vad"]
+	path = cltl-vad
+	url = https://github.com/leolani/cltl-vad.git
+	branch = main
