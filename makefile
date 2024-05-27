@@ -7,12 +7,13 @@ project_components = $(addprefix ${project_root}/, \
 		cltl-requirements \
 		cltl-combot \
 		cltl-backend \
+		cltl-context \
 		cltl-eliza-app \
 		cltl-eliza \
 		cltl-chat-ui \
 		cltl-emissor-data \
 		cltl-vad \
-                cltl-asr)
+		cltl-asr)
 
 git_local ?= ..
 git_remote ?= https://github.com/leolani
