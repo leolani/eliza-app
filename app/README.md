@@ -6,7 +6,7 @@ This application also serves as a blue-print for applications in the combot fram
 
 ## Getting started
 
-Follow the install and run instructions in the [Eliza parent](https://github.com/leolani/eliza-parent.git).
+Follow the install and run instructions in the [Eliza parent](../README.md).
 
 After starting the application, wait until all services and the backend server are started. Until that point
 is reached, there will be warnings about failed connections to the backend in the logs, which can be ignored. This can
@@ -100,7 +100,7 @@ The local Python application is setup in the `py-app/` folder and has the follow
         └── video
 
 The entry point of the application is the `app.py` script and from the `py-app/` directory after running `make build`
-from the [eliza-parent](https://github.com/leolani/eliza-parent) it can be run via
+from the [eliza-parent](../README.md) it can be run via
 
     source venv/bin/activate
     python app.py
