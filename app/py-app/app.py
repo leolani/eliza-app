@@ -1,3 +1,4 @@
+import json
 import logging.config
 import os
 
@@ -20,7 +21,7 @@ from cltl.backend.spi.image import ImageSource
 from cltl.backend.spi.text import TextOutput
 from cltl.chatui.api import Chats
 from cltl.chatui.memory import MemoryChats
-from cltl.combot.event.bdi import IntentionEvent
+from cltl.combot.event.bdi import IntentionEvent, Intention
 from cltl.combot.infra.config.k8config import K8LocalConfigurationContainer
 from cltl.combot.infra.di_container import singleton
 from cltl.combot.infra.event import Event
@@ -36,7 +37,6 @@ from cltl_service.backend.storage import StorageService
 from cltl_service.bdi.service import BDIService
 from cltl_service.chatui.service import ChatUiService
 from cltl_service.combot.event_log.service import EventLogService
-from cltl_service.context.service import ContextService
 from cltl_service.eliza.service import ElizaService
 from cltl_service.intentions.init import InitService
 from cltl_service.keyword.service import KeywordService
@@ -45,6 +45,8 @@ from emissor.representation.util import serializer as emissor_serializer
 from flask import Flask
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from werkzeug.serving import run_simple
+
+from app_service.context.service import ContextService
 
 from cltl.emissordata.api import EmissorDataStorage
 from cltl.emissordata.file_storage import EmissorDataFileStorage
@@ -73,7 +75,7 @@ class BackendContainer(InfraContainer):
     @property
     @singleton
     def image_storage(self) -> ImageStorage:
-        return CachedImageStorage.from_config(self.config_manager)
+        return []
 
     @property
     @singleton
@@ -83,7 +85,7 @@ class BackendContainer(InfraContainer):
     @property
     @singleton
     def image_source(self) -> ImageSource:
-        return ClientImageSource.from_config(self.config_manager)
+        return []
 
     @property
     @singleton
@@ -104,9 +106,7 @@ class BackendContainer(InfraContainer):
     @property
     @singleton
     def camera(self) -> Camera:
-        config = self.config_manager.get_config("cltl.backend.image")
-
-        return ImageCamera(self.image_source, config.get_float("rate"))
+        return []
 
     @property
     @singleton
@@ -294,12 +294,7 @@ class ElizaComponentsContainer(EmissorStorageContainer, InfraContainer):
     @property
     @singleton
     def bdi_service(self) -> BDIService:
-        # TODO make configurable
-        bdi_model = {"init":
-                         {"initialized": ["eliza"]},
-                     "eliza":
-                         {"quit": ["init"]}
-                     }
+        bdi_model = json.loads(self.config_manager.get_config("cltl.bdi").get("model"))
 
         return BDIService.from_config(bdi_model, self.event_bus, self.resource_manager, self.config_manager)
 
@@ -417,7 +412,7 @@ def main():
 
     with application as started_app:
         intention_topic = started_app.config_manager.get_config("cltl.bdi").get("topic_intention")
-        started_app.event_bus.publish(intention_topic, Event.for_payload(IntentionEvent(["init"])))
+        started_app.event_bus.publish(intention_topic, Event.for_payload(IntentionEvent([Intention("init", None)])))
 
         routes = {
             '/storage': started_app.storage_service.app,
@@ -432,7 +427,7 @@ def main():
         run_simple('0.0.0.0', 8000, web_app, threaded=True, use_reloader=False, use_debugger=False, use_evalex=True)
 
         intention_topic = started_app.config_manager.get_config("cltl.bdi").get("topic_intention")
-        started_app.event_bus.publish(intention_topic, Event.for_payload(IntentionEvent(["terminate"])))
+        started_app.event_bus.publish(intention_topic, Event.for_payload(IntentionEvent([Intention("terminate", None)])))
         time.sleep(1)
 
 

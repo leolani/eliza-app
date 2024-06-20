@@ -1,6 +1,6 @@
 import logging
 
-from myapp.template.api import DemoProcessor
+from eliza_app.template.api import DemoProcessor
 
 logger = logging.getLogger(__name__)
 

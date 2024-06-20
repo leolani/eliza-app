@@ -1,10 +1,19 @@
-cltl.backend[impl,host,service]
+cltl.backend[impl]
 cltl.context[service]
 cltl.asr[impl,whisper,service]
 cltl.vad[impl,service]
-cltl.emissor-data[impl,service,client]
+cltl.emissor-data[service,client]
 cltl.chat-ui
 cltl.eliza
+
+# TODO Fix backend optional dependencies
+soundfile
+cachetools
+pyaudio
+sounddevice
+opencv-python==4.8.0.76
+pyobjc==9.2;sys_platform=='darwin'
+
 
 flask
 werkzeug
