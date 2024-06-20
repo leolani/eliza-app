@@ -31,7 +31,8 @@ matplotlib==3.7.1
 # Audio/Video
 clang==11.0
 PyAudio==0.2.13
-Pillow==8.0.1
+# Pillow==8.0.1
+# TODO fix backend
 opencv-python==4.8.0.76
 pyobjc==9.2;sys_platform=='darwin'
 sounddevice==0.4.2
